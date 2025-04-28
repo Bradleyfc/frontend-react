@@ -8,7 +8,24 @@ const registroApi = axios.create({
 });
 
 export const getRegistros = () => registroApi.get()
-export const createRegistro = (formData) => registroApi.post('/', formData)
+
+export const createRegistro = (formData) => {
+  // Generar contraseña aleatoria de 4 dígitos
+  const randomPassword = Math.floor(1000 + Math.random() * 9000).toString();
+  
+  // Añadir la contraseña al formData
+  const dataWithPassword = {
+    ...formData,
+    password: randomPassword,
+    send_email: true  // Indicar al backend que envíe un correo
+  };
+  
+  console.log("Enviando datos con contraseña generada:", dataWithPassword);
+  
+  // Enviar los datos al servidor
+  return registroApi.post('/', dataWithPassword);
+}
+
 export const eliminarRegistro = (id) => registroApi.delete(`/${id}/`)
 
 /* export const createRegistro = async (data) => {

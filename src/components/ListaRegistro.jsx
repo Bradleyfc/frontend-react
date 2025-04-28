@@ -45,6 +45,7 @@ export const ListaRegistro = () => {
                 <th>Ocupación</th>
                 <th>Título</th>
                 <th>Correo</th>
+                <th>Contraseña</th>
                 <th></th>
               </tr>
             </thead>
@@ -65,6 +66,7 @@ export const ListaRegistro = () => {
                   <td>{registro.ocupacion_display}</td>
                   <td>{registro.titulo}</td>
                   <td>{registro.correo}</td>
+                  <td>{registro.password}</td>
                   <td><button onClick = {() => handleDelete (registro.id)} >Eliminar</button></td>
                 </tr>
               ))}
