@@ -22,14 +22,17 @@ export const FormRegistro = () => {
   
 const handleSubmit = async (e) => {
   e.preventDefault();
-  await createRegistro(formData);
-  alert("Registro creado exitosamente");
-  /* try {
-    console.log(formData);
+  // Validar que el correo termine en .com
+  if (formData.correo && !formData.correo.endsWith('.com')) {
+    alert("El correo electrónico debe terminar en .com");
+    return;
+  }
+  
+  try {
     const response = await createRegistro(formData);
     console.log("Registro creado:", response);
     alert("Registro creado exitosamente");
-    // Reset form if needed
+  
     setFormData({
       nombre: '',
       apellidos: '',
@@ -50,8 +53,8 @@ const handleSubmit = async (e) => {
     console.error("Error al crear registro:", error);
     alert("Error al crear el registro: " + (error.response?.data?.message || error.message || "Error desconocido"));
   }
-} */
-}
+} 
+  
 
 
   return (
@@ -101,10 +104,13 @@ const handleSubmit = async (e) => {
           <label>Carnet</label>
           <input 
             type='text' 
+            maxLength={11}
+            minLength={11}
             className='form-control'
             name="carnet"
             defaultValue={formData.carnet}
             onChange= {(e) => setFormData({... formData,carnet: e.target.value} )}
+            required
           />
         </div>
         <div className='form-group mb-3'>
@@ -178,6 +184,7 @@ const handleSubmit = async (e) => {
             name="grado"
             value={formData.grado}
             onChange= {(e) => setFormData({... formData,grado: e.target.value} )}
+            required
           >
             <option value="">Seleccione</option>
             <option value="grado1">Ninguno</option>
@@ -193,6 +200,7 @@ const handleSubmit = async (e) => {
             name="ocupacion"
             value={formData.ocupacion}
             onChange= {(e) => setFormData({... formData,ocupacion: e.target.value} )}
+            required
           >
             <option value="">Seleccione</option>
             <option value="ocupacion1">Desocupado</option>
